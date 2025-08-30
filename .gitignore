@@ -399,3 +399,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+
+#settings
+appsettings.*.json
+/api/myNotification.Api/appsettings.json
