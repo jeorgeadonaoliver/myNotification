@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Twilio" Version="7.12.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\myNotification.Application\myNotification.Application\myNotification.Application.csproj" />
+    <ProjectReference Include="..\myNotification.Domain\myNotification.Domain\myNotification.Domain.csproj" />
+    <ProjectReference Include="..\myNotification.Infrastracture\myNotification.Infrastructure\myNotification.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
