@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace myNotification.Application.Features.WhatsApp.SendMessage
+namespace myNotification.Application.Features.Sms.SendMessage
 {
-    public class SendWhatsAppMessageCommand
+    public class SendSmsMessageCommand
     {
         public string MessageId { get; set; }
 

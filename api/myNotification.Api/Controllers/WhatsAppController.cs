@@ -1,10 +1,6 @@
-﻿using FluentValidation;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using myNotification.Application.Features.WhatsApp;
+﻿using Microsoft.AspNetCore.Mvc;
+using myNotification.Application.Features.Sms.SendMessage;
 using myNotification.Application.Features.WhatsApp.SendMessage;
-using myNotification.Domain;
-using myNotification.Domain.WhatsApp;
 
 namespace myNotification.api.Controllers
 {
@@ -13,18 +9,26 @@ namespace myNotification.api.Controllers
     public class WhatsAppController : ControllerBase
     {
         private readonly SendWhatsAppMessage _sendWhatsAppMessage;
+        private readonly SendSmsMessage _sendSmsMessage;
 
 
-        public WhatsAppController(SendWhatsAppMessage sendWhatsAppMessage)
+        public WhatsAppController(SendWhatsAppMessage sendWhatsAppMessage, SendSmsMessage sendSmsMessage)
         { 
             _sendWhatsAppMessage = sendWhatsAppMessage;
+            _sendSmsMessage = sendSmsMessage;
         }
 
 
-        [HttpPost("send")] // POST /api/whatsapp/send
-        public async Task<ActionResult> Send([FromBody] SendMessageCommand command, CancellationToken ct)
+        [HttpPost("sendWhatsapp")] // POST /api/whatsapp/send
+        public async Task<ActionResult> SendWhatsapp([FromBody] SendWhatsAppMessageCommand command, CancellationToken ct)
         {
             return Ok(await _sendWhatsAppMessage.SendMessage(command));
+        }
+
+        [HttpPost("sendSms")] // POST /api/whatsapp/send
+        public async Task<ActionResult> SendSms([FromBody] SendSmsMessageCommand command, CancellationToken ct)
+        {
+            return Ok(await _sendSmsMessage.SendMessage(command));
         }
     }
 }

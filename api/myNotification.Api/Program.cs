@@ -1,4 +1,5 @@
 using FluentValidation;
+using myNotification.Application.Features.Sms.SendMessage;
 using myNotification.Application.Features.WhatsApp;
 using myNotification.Application.Features.WhatsApp.SendMessage;
 using myNotification.Domain.WhatsApp;
@@ -19,6 +20,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddWhatsAppInfrastructure(builder.Configuration);
 
 builder.Services.AddScoped<SendWhatsAppMessage>();
+builder.Services.AddScoped<SendSmsMessage>();
 
 
 var app = builder.Build();

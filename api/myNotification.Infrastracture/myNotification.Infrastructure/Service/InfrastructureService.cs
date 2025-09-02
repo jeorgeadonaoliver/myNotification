@@ -18,6 +18,10 @@ public static class InfrastructureService
             new TwilioWhatsAppNotifier(twilioSettings.FromNumber)
         );
 
+        services.AddScoped<ISmsNotifier>(sp =>
+            new SmsNotifier(twilioSettings.FromSmsNumber)
+        );
+
         return services;
     }
 }

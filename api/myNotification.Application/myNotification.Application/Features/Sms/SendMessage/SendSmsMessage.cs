@@ -1,28 +1,28 @@
 ﻿using myNotification.Application.Interface;
 
-namespace myNotification.Application.Features.WhatsApp.SendMessage
+namespace myNotification.Application.Features.Sms.SendMessage
 {
-    public class SendWhatsAppMessage
+    public class SendSmsMessage
     {
-        private readonly IWhatsAppNotifier _whatsAppNotifier;
+        private readonly ISmsNotifier _smsNotifier;
 
-        public SendWhatsAppMessage(IWhatsAppNotifier whatsAppNotifier)
+        public SendSmsMessage(ISmsNotifier smsNotifier)
         {
-            _whatsAppNotifier = whatsAppNotifier;
+            _smsNotifier = smsNotifier;
         }
 
-        public async Task<bool> SendMessage(SendWhatsAppMessageCommand command) 
+        public async Task<bool> SendMessage(SendSmsMessageCommand command)
         {
             try
             {
                 string message = $"Greetings {command.ApproverName}. I wanted to let you know that new trade submissions are ready for your review. Your expertise is key to getting these finalized, and we appreciate you helping us move the process forward.";
 
-                await _whatsAppNotifier.SendMessageAsync(command.Recipient, message);
+                await _smsNotifier.SendMessageAsync(command.Recipient, message);
                 return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message.ToString());
                 return false;
             }
         }
