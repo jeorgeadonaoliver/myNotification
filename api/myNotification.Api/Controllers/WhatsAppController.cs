@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using myNotification.Application.Features.Sms.SendMessage;
 using myNotification.Application.Features.WhatsApp.SendMessage;
+using myNotification.Infrastructure.Hubs;
 
 namespace myNotification.api.Controllers
 {
@@ -10,12 +12,20 @@ namespace myNotification.api.Controllers
     {
         private readonly SendWhatsAppMessage _sendWhatsAppMessage;
         private readonly SendSmsMessage _sendSmsMessage;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-
-        public WhatsAppController(SendWhatsAppMessage sendWhatsAppMessage, SendSmsMessage sendSmsMessage)
+        public WhatsAppController(SendWhatsAppMessage sendWhatsAppMessage, SendSmsMessage sendSmsMessage, IHubContext<NotificationHub> hubContext)
         { 
             _sendWhatsAppMessage = sendWhatsAppMessage;
             _sendSmsMessage = sendSmsMessage;
+            _hubContext = hubContext;
+        }
+
+        [HttpPost("{userId}")]
+        public async Task<IActionResult> SendNotification(string userId, [FromBody] string message)
+        {
+            await _hubContext.Clients.Group(userId).SendAsync("ReceiveNotification", message);
+            return Ok(new { status = "sent", user = userId, message });
         }
 
 
